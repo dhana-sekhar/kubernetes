@@ -20,6 +20,13 @@ spec:
       containers:
       - name: streamlit-app
         image: sekharbuddha/test-kube:v2 # Replace with your image
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
         ports:
         - containerPort: 8501
 
