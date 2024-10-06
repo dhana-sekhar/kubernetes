@@ -3,12 +3,13 @@ kind: Deployment
 metadata:
   name: streamlit-app
 spec:
-  replicas: 2 # Number of replicas to test load balancing
+  replicas: 2  # Number of replicas to test load balancing
+  spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1 # Number of pods that can be unavailable during the update
-      maxSurge: 1
+      maxUnavailable: 1  # Number of pods that can be unavailable during the update
+      maxSurge: 1  
   selector:
     matchLabels:
       app: streamlit-app
@@ -19,7 +20,7 @@ spec:
     spec:
       containers:
       - name: streamlit-app
-        image: sekharbuddha/test-kube:v2 # Replace with your image
+        image: sekharbuddha/test-kube:v2  # Replace with your image
         ports:
         - containerPort: 8501
 
@@ -33,8 +34,7 @@ spec:
     app: streamlit-app
   ports:
   - protocol: TCP
-    port: 80 # Service port
-    targetPort: 8501 # The port your Streamlit app is running on in the container
-    nodePort: 30007 
+    port: 80             # Service port
+    targetPort: 8501      # The port your Streamlit app is running on in the container
+    nodePort: 30007       # A NodePort in the range 30000–32767 (can be any valid port)
   type: NodePort
-  
