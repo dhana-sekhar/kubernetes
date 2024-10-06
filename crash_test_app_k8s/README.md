@@ -1,5 +1,3 @@
-Here’s a `README.md` file that explains the steps for deploying your **Python Streamlit app** with a **rolling update** in Kubernetes.
-
 ### `README.md`
 
 ```markdown
