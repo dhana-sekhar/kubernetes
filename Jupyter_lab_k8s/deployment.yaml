@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyterlab-app
+spec:
+  replicas: 2 # Number of replicas to test load balancing
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1 # Number of pods that can be unavailable during the update
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: jupyterlab-app
+  template:
+    metadata:
+      labels:
+        app: jupyterlab-app
+    spec:
+      containers:
+      - name: jupyterlab-app
+        image: sekharbuddha/testkube:jupyterserver # Replace with your image
+      ports:
+        - containerPort: 8501
+      env:
+      - name: JUPYTER_TOKEN
+        value: "sekhar"
+        # resources:
+        #   requests:
+        #     memory: "128Mi"
+        #     cpu: "250m"
+        #   args:
+        #   - "jupyter"
+        #   - "lab"
+        #   - "--ip=0.0.0.0"
+        #   - "--allow-root"
+        #   - "--no-browser"
+        #   - "--port=8888"
+        #   limits:
+        #     memory: "256Mi"
+        #     cpu: "500m"
+        
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyterlab-service
+spec:
+  selector:
+    app: jupyterlab-app
+  ports:
+  - protocol: TCP
+    port: 8888 # Service port
+    targetPort: 8888 # The port your Streamlit app is running on in the container
+    nodePort: 30088
+  type: NodePort
