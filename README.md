@@ -112,4 +112,4 @@ Here's an index-style overview of Kubernetes with its main components and sub-co
    - **6.4. Logging**  
      - Centralized logging for containers and services using tools like ELK stack.
 
-This index should help you understand the different layers and components involved in a Kubernetes cluster. Let me know if you'd like to dive deeper into any specific area!
+This index should help you understand the different layers and components involved in a Kubernetes cluster.
