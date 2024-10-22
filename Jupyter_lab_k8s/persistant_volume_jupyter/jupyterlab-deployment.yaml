@@ -26,6 +26,11 @@ spec:
         env:
         - name: JUPYTER_TOKEN
           value: "sekhar"  # Static token
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: jupyterlab-configmap
+              key: jupyter-port          
         volumeMounts:
         - mountPath: /workspace  # Path inside the container
           name: jupyterlab-storage
